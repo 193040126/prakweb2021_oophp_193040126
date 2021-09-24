@@ -4,18 +4,14 @@ class Produk {
     public $judul, 
     $penulis, 
     $penerbit, 
-    $harga,
-    $jmlHalaman,
-    $waktuMain;
+    $harga;
 
     public function __construct( $judul = "judul", $penulis = "penulis", $penerbit = "penerbit", 
-    $harga = 0, $jmlHalaman = 0, $waktuMain = 0){
+    $harga = 0){
         $this->judul = $judul;
         $this->penulis = $penulis;
         $this->penerbit = $penerbit;
         $this->harga = $harga;
-        $this->jmlHalaman = $jmlHalaman;
-        $this->waktuMain = $waktuMain;
     }
 
     public function getLabel(){
@@ -32,6 +28,15 @@ class Produk {
 }
 
 class Komik extends Produk {
+    public $jmlHalaman;
+
+    public function __construct($judul = "judul", $penulis = "penulis", $penerbit = "penerbit", 
+        $harga = 0, $jmlHalaman = 0){
+        
+        parent::__construct($judul, $penulis, $penerbit, $harga);
+
+        $this->jmlHalaman = $jmlHalaman;
+    }
     public function getInfoProduk(){
         $str = "Komik : " . parent::getInfoProduk() . " - {$this->jmlHalaman} Halaman.";
         return $str;
@@ -39,9 +44,18 @@ class Komik extends Produk {
 }
 
 class Game extends Produk{
+    public $waktuMain;
+
+    public function __construct($judul = "judul", $penulis = "penulis", $penerbit = "penerbit", 
+        $harga = 0, $waktuMain = 0){
+
+        parent::__construct($judul, $penulis, $penerbit, $harga);
+
+        $this->waktuMain = $waktuMain;
+    }
+
     public function getInfoProduk(){
-        $str = "Game : {$this->judul} | {$this->getLabel()} (Rp. {$this->harga
-        }) ~ {$this->waktuMain} Jam.";
+        $str = "Game : " . parent::getInfoProduk() . " ~ {$this->waktuMain} Jam.";
         return $str;
     }
 }
@@ -60,8 +74,8 @@ class CetakInfoProduk{
 // $produk2 = new Produk();
 
 // var_dump($produk2);
-$produk1 = new Komik("Sasuke", "Masashi Kishimoto", "Shonen Run", 50000, 100, 0);
-$produk2 = new Game("Uncharted", "Neil Druckman", "Sony Computer", 250000, 0, 50);
+$produk1 = new Komik("Sasuke", "Masashi Kishimoto", "Shonen Run", 50000, 100);
+$produk2 = new Game("Uncharted", "Neil Druckman", "Sony Computer", 250000, 50);
 
 echo $produk1->getInfoProduk();
 echo "<br>";
